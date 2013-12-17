@@ -1,6 +1,6 @@
 # inquirer.rb
 
-Interact with your user on CLI interactively.
+Interactive user prompts on CLI for ruby.
 
 ... under development ...
 
