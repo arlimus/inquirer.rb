@@ -44,7 +44,7 @@ module ListRenderer
 end
 
 class List
-  def initialize elements, question = nil, renderer = ListRenderer
+  def initialize question = nil, elements = [], renderer = ListRenderer
     @elements = elements
     @question = question
     @pos = 0
