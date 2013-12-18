@@ -86,4 +86,9 @@ class List
     end
   end
 
+  def self.ask *args
+    l = List.new *args
+    l.run
+  end
+
 end
