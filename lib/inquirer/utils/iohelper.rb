@@ -73,6 +73,12 @@ module IOHelper
     end
   end
 
+  # Get the console window size
+  # Returns: [width, height]
+  def winsize
+    STDIN.winsize
+  end
+
   private
 
   def read_key_raw

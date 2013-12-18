@@ -67,7 +67,12 @@ class List
   end
 
   def clear old_text
-    print carriage_return + ( line_up * ( old_text.scan(/\n/).length )) + clear_line
+    # get console window height and width
+    h,w = IOHelper.winsize
+    # determine how many lines to move up
+    n = old_text.scan(/\n/).length
+    # jump back to the first position and clear the line
+    print carriage_return + ( line_up * n) + clear_line
   end
 
   def carriage_return;  "\r"    end
