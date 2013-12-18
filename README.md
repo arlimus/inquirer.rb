@@ -7,7 +7,7 @@ Interactive user prompts on CLI for ruby.
 Platform support:
 
 |      Ruby      | Linux | OS X | Windows |
-+----------------+-------+------+---------+
+|----------------|:-----:|:----:|:-------:|
 | MRI 1.9.3      | ✔     | ✔    | ✘       |
 | MRI 2.0.0      | ✔     | ✔    | ✘       |
 | Rubinius 2.2.1 | ✔     | ✔    | ✘       |
