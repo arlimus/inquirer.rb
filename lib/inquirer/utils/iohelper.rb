@@ -1,3 +1,5 @@
+require 'io/console'
+
 module IOHelper
   extend self
 
@@ -51,6 +53,15 @@ module IOHelper
     raw = read_key_raw
     raise Interrupt if with_exit_codes and ( raw == "ctrl-c" or raw == "ctrl-d" )
     raw
+  end
+
+  def read_key_while &block
+    STDIN.noecho do
+      # as long as the block doen't return falsy,
+      # read the user input key and sned it to the block
+      while block.( IOHelper.read_key )
+      end
+    end
   end
 
   private

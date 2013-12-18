@@ -71,19 +71,16 @@ class List
   end
 
   def run
-    require 'io/console'
-    done = false
-    $stdin.noecho do
-      while not done
-        render
-        key = IOHelper.read_key
-        @pos = (@pos - 1) % @elements.length if key == "up"
-        @pos = (@pos + 1) % @elements.length if key == "down"
-        done = true if key == "return"
-        exit 1 if key == "ctrl-c" or key == "ctrl-d"
-        clear
-      end
+    render
+    IOHelper.read_key_while do |key|
+      @pos = (@pos - 1) % @elements.length if key == "up"
+      @pos = (@pos + 1) % @elements.length if key == "down"
+      clear
+      render
+      # we are done if the user hits return
+      key != "return"
     end
+    clear
   end
 
   def self.ask *args

@@ -15,6 +15,7 @@ spec = Gem::Specification.new do |s|
   s.homepage = 'https://github.com/arlimus/livecd'
 
   s.add_dependency 'term-ansicolor', '>= 1.2.2'
+  s.add_dependency 'io-console', '>= 0.4.2'
 
   s.files = `git ls-files`.split("\n")
   s.executables = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
