@@ -1,3 +1,5 @@
+require 'term/ansicolor'
+
 # Base rendering for simple lists
 module ListRendererBase
   def render heading = nil, list = [], footer = nil
@@ -25,19 +27,20 @@ end
 # Simple formatting for list rendering
 module ListRendererSimple
   include ListRendererBase
+  include Term::ANSIColor
   extend self
   Heading = "%s:\n"
   Footer = "%s\n"
-  Item = "%s\n"
-  SelectedItem = "%s\n"
-  Selector = ">"
+  Item = reset + "%s\n"
+  SelectedItem = cyan + "%s\n"
+  Selector = cyan + ">"
 end
 
 # Default formatting for list rendering
 module ListRenderer
   include ListRendererSimple
   extend self
-  Selector = "‣"
+  Selector = cyan + "‣"
 end
 
 class List
