@@ -31,16 +31,16 @@ module ListRendererSimple
   extend self
   Heading = "%s:\n"
   Footer = "%s\n"
-  Item = reset + "%s\n"
-  SelectedItem = cyan + "%s\n"
-  Selector = cyan + ">"
+  Item = "%s\n"
+  SelectedItem = cyan("%s") + "\n"
+  Selector = cyan ">"
 end
 
 # Default formatting for list rendering
 module ListRenderer
   include ListRendererSimple
   extend self
-  Selector = cyan + "‣"
+  Selector = cyan "‣"
 end
 
 class List
