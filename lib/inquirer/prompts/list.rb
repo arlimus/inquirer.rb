@@ -66,26 +66,26 @@ class List
     puts @prompt
   end
 
-  def clear
-    print "\r" + ( "\e[A" * ( @prompt.scan(/\n/).length ))
+  def clear old_text
+    print carriage_return + ( line_up * ( old_text.scan(/\n/).length )) + clear_line
   end
 
-  def clear_line
-    print "\e[0K"
-  end
+  def carriage_return;  "\r"    end
+  def line_up;          "\e[A"  end
+  def clear_line;       "\e[0K" end
 
   def run
     render
     IOHelper.read_key_while do |key|
       @pos = (@pos - 1) % @elements.length if key == "up"
       @pos = (@pos + 1) % @elements.length if key == "down"
-      clear
+      clear(@prompt)
       render
       # we are done if the user hits return
       key != "return"
     end
-    clear
-    clear_line
+    # clear the final prompt and the line
+    clear(@prompt)
     # return the index of the selected item
     @pos
   end
