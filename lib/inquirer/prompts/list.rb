@@ -81,6 +81,8 @@ class List
       key != "return"
     end
     clear
+    # return the index of the selected item
+    @pos
   end
 
   def self.ask *args
