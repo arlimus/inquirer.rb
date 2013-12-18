@@ -14,6 +14,8 @@ spec = Gem::Specification.new do |s|
   s.email = "dominik.richter@googlemail.com"
   s.homepage = 'https://github.com/arlimus/livecd'
 
+  s.add_dependency 'term-ansicolor', '>= 1.2.2'
+
   s.files = `git ls-files`.split("\n")
   s.executables = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
