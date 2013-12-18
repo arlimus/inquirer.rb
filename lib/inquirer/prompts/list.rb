@@ -1,23 +1,36 @@
+# Base rendering for simple lists
 module ListRendererBase
-
   def render heading = nil, list = [], footer = nil
+    # render the heading
     ( heading.nil? ? "" : self::Heading % heading ) +
+    # render the list
     list.map do |li|
-      li["selected"] ?
-        self::SelectedItem % li["value"] :
-        self::Item % li["value"]
+      li["selected"] ? selected(li["value"]) : unselected(li["value"])
     end.join("") +
+    # render the footer
     ( footer.nil? ? "" : self::Footer % footer )
+  end
+
+  private
+
+  def selected x
+    self::Selector + " " + self::SelectedItem % x
+  end
+
+  def unselected x
+    "  " + self::Item % x
   end
 end
 
+# Simple formatting for list rendering
 module ListRendererSimple
   include ListRendererBase
   extend self
   Heading = "%s:\n"
   Footer = "%s\n"
-  Item = "  %s\n"
-  SelectedItem = "x %s\n"
+  Item = "%s\n"
+  SelectedItem = "%s\n"
+  Selector = ">"
 end
 
 class List
