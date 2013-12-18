@@ -4,6 +4,17 @@ Interactive user prompts on CLI for ruby.
 
 ... under development ...
 
+## Examples
+
+```ruby
+List.ask "Look behind you...", [
+  "a three-headed monkey!",
+  "a pink pony",
+  "Godzilla"
+]
+```
+
+
 ## Compatibility
 
 |      Ruby      | Linux | OS X | Windows |
