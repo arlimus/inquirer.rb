@@ -47,7 +47,15 @@ module IOHelper
     return c
   end
 
-  def read_key
+  def read_key with_exit_codes = true
+    raw = read_key_raw
+    raise Interrupt if with_exit_codes and ( raw == "ctrl-c" or raw == "ctrl-d" )
+    raw
+  end
+
+  private
+
+  def read_key_raw
     c = read_char
     # try to get the key name from the character
     k = KEYS[c]
