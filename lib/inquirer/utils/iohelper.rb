@@ -20,7 +20,8 @@ module IOHelper
     "\004" => "ctrl-d"
   }
 
-  # http://www.alecjacobson.com/weblog/?p=75
+  # Read a character the user enters on console. This call is synchronous blocking.
+  # This is taken from: http://www.alecjacobson.com/weblog/?p=75
   def read_char
     begin
       # save previous state of stty
@@ -49,12 +50,20 @@ module IOHelper
     return c
   end
 
+  # Read a keypress on console. Return the key name (e.g. "space", "a", "B")
+  # Params:
+  # +with_exit_codes+:: +Bool+ whether to throw Interrupts when the user presses
+  #   ctrl-c and ctrl-d. (true by default)
   def read_key with_exit_codes = true
     raw = read_key_raw
     raise Interrupt if with_exit_codes and ( raw == "ctrl-c" or raw == "ctrl-d" )
     raw
   end
 
+  # Get each key the user presses and hand it one by one to the block. Do this
+  # as long as the block returns truthy
+  # Params:
+  # +&block+:: +Proc+ a block that receives a user key and returns truthy or falsy
   def read_key_while &block
     STDIN.noecho do
       # as long as the block doen't return falsy,
