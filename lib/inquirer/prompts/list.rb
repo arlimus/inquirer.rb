@@ -33,8 +33,15 @@ module ListRendererSimple
   Selector = ">"
 end
 
+# Default formatting for list rendering
+module ListRenderer
+  include ListRendererSimple
+  extend self
+  Selector = "‣"
+end
+
 class List
-  def initialize elements, question = nil, renderer = ListRendererSimple
+  def initialize elements, question = nil, renderer = ListRenderer
     @elements = elements
     @question = question
     @pos = 0
