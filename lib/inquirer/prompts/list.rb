@@ -67,7 +67,11 @@ class List
   end
 
   def clear
-    puts "\r" + ( "\e[A" * ( @prompt.scan(/\n/).length + 1 ))
+    print "\r" + ( "\e[A" * ( @prompt.scan(/\n/).length ))
+  end
+
+  def clear_line
+    print "\e[0K"
   end
 
   def run
@@ -81,6 +85,7 @@ class List
       key != "return"
     end
     clear
+    clear_line
     # return the index of the selected item
     @pos
   end
