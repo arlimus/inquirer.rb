@@ -79,6 +79,27 @@ module IOHelper
     STDIN.winsize
   end
 
+  # Render a text to the prompt
+  def render prompt
+    print prompt
+  end
+
+  # clear the console based on the last text printed
+  # Params:
+  # +old_text+:: +String+ the previously printed text to clean up
+  def clear old_text
+    # get console window height and width
+    h,w = IOHelper.winsize
+    # determine how many lines to move up
+    n = old_text.scan(/\n/).length
+    # jump back to the first position and clear the line
+    print carriage_return + ( line_up * n ) + clear_line
+  end
+
+  def carriage_return;  "\r"    end
+  def line_up;          "\e[A"  end
+  def clear_line;       "\e[0K" end
+
   private
 
   def read_key_raw

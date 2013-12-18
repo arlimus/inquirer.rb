@@ -52,7 +52,7 @@ class List
     @renderer = renderer
   end
 
-  def render
+  def update_prompt
     # transform the list into
     # {"value"=>..., "selected"=> true|false}
     e = @elements.
@@ -63,34 +63,23 @@ class List
       end
     # call the renderer
     @prompt = @renderer.render(@question, e)
-    puts @prompt
   end
-
-  def clear old_text
-    # get console window height and width
-    h,w = IOHelper.winsize
-    # determine how many lines to move up
-    n = old_text.scan(/\n/).length
-    # jump back to the first position and clear the line
-    print carriage_return + ( line_up * n) + clear_line
-  end
-
-  def carriage_return;  "\r"    end
-  def line_up;          "\e[A"  end
-  def clear_line;       "\e[0K" end
 
   def run
-    render
+    update_prompt
+    IOHelper.render(@prompt)
+
     IOHelper.read_key_while do |key|
       @pos = (@pos - 1) % @elements.length if key == "up"
       @pos = (@pos + 1) % @elements.length if key == "down"
-      clear(@prompt)
-      render
+      IOHelper.clear(@prompt)
+      update_prompt
+      IOHelper.render(@prompt)
       # we are done if the user hits return
       key != "return"
     end
     # clear the final prompt and the line
-    clear(@prompt)
+    IOHelper.clear(@prompt)
     # return the index of the selected item
     @pos
   end
