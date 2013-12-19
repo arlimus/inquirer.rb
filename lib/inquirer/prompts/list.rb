@@ -71,13 +71,13 @@ class List
     IOHelper.read_key_while do |key|
       @pos = (@pos - 1) % @elements.length if key == "up"
       @pos = (@pos + 1) % @elements.length if key == "down"
-      IOHelper.clear(@prompt)
+      IOHelper.clear
       IOHelper.render( update_prompt )
       # we are done if the user hits return
       key != "return"
     end
     # clear the final prompt and the line
-    IOHelper.clear(@prompt)
+    IOHelper.clear
     # return the index of the selected item
     @pos
   end
