@@ -65,7 +65,13 @@ class List
     @prompt = @renderer.render(@question, e)
   end
 
-  def run
+  # Run the list selection, wait for the user to select an item and return
+  # the selected index
+  # Params:
+  # +clear+:: +Bool+ whether to clear the selection prompt once this is done
+  #   defaults to true; set it to false if you want the prompt to remain after
+  #   the user is done with selecting
+  def run clear = true
     # render the
     IOHelper.render( update_prompt )
     # loop through user input
@@ -77,7 +83,7 @@ class List
       key != "return"
     end
     # clear the final prompt and the line
-    IOHelper.clear
+    IOHelper.clear if clear
     # return the index of the selected item
     @pos
   end
