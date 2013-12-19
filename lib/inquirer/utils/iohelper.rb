@@ -87,6 +87,12 @@ module IOHelper
     print prompt
   end
 
+  # Clear the prompt and render the update
+  def rerender prompt
+    clear
+    render prompt
+  end
+
   # clear the console based on the last text rendered
   def clear
     # get console window height and width

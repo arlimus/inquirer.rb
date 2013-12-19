@@ -66,13 +66,13 @@ class List
   end
 
   def run
+    # render the
     IOHelper.render( update_prompt )
-
+    # loop through user input
     IOHelper.read_key_while do |key|
       @pos = (@pos - 1) % @elements.length if key == "up"
       @pos = (@pos + 1) % @elements.length if key == "down"
-      IOHelper.clear
-      IOHelper.render( update_prompt )
+      IOHelper.rerender( update_prompt )
       # we are done if the user hits return
       key != "return"
     end
