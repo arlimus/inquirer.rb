@@ -84,7 +84,7 @@ class Checkbox
     IOHelper.read_key_while do |key|
       @pos = (@pos - 1) % @elements.length if key == "up"
       @pos = (@pos + 1) % @elements.length if key == "down"
-      @active[@pos] = !@active[@pos] if key == " "
+      @active[@pos] = !@active[@pos] if key == "space"
       IOHelper.rerender( update_prompt )
       # we are done if the user hits return
       key != "return"
