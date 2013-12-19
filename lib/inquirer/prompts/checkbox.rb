@@ -20,7 +20,7 @@ module CheckboxRendererBase
     ( x["selected"] ? self::Selector : " " ) +
     ( x["active"] ? self::CheckboxOn : self::CheckboxOff ) +
     " " +
-    ( x["selected"] ? self::ActiveItem : self::Item ) % x
+    ( x["active"] ? self::ActiveItem : self::Item ) % x["value"]
   end
 
 end
@@ -35,8 +35,8 @@ module CheckboxRendererSimple
   Item = "%s\n"
   ActiveItem = cyan("%s") + "\n"
   Selector = cyan ">"
-  CheckboxOn = "x"
-  CheckboxOff = "o"
+  CheckboxOn = "[X]"
+  CheckboxOff = "[ ]"
 end
 
 # Default formatting for list rendering
@@ -44,8 +44,8 @@ module CheckboxRenderer
   include CheckboxRendererSimple
   extend self
   Selector = cyan "‣"
-  CheckboxOn = "x"
-  CheckboxOff = "o"
+  CheckboxOn = cyan "⬢"
+  CheckboxOff = "⬡"
 end
 
 class Checkbox
