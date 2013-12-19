@@ -92,7 +92,7 @@ class Checkbox
     # clear the final prompt and the line
     IOHelper.clear if clear
     # return the index of the selected item
-    @pos
+    @active
   end
 
   def self.ask *args
