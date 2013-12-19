@@ -1,5 +1,5 @@
 require_relative '../lib/inquirer'
-idx = List.ask "Look behind you...", [
+idx = Ask.list "Look behind you...", [
   "a three-headed monkey!",
   "a pink pony",
   "Godzilla"

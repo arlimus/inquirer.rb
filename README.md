@@ -7,7 +7,7 @@ Interactive user prompts on CLI for ruby.
 ## Examples
 
 ```ruby
-idx = List.ask "Look behind you...", [
+idx = Ask.list "Look behind you...", [
   "a three-headed monkey!",
   "a pink pony",
   "Godzilla"
