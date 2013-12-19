@@ -7,11 +7,12 @@ Interactive user prompts on CLI for ruby.
 ## Examples
 
 ```ruby
-List.ask "Look behind you...", [
+idx = List.ask "Look behind you...", [
   "a three-headed monkey!",
   "a pink pony",
   "Godzilla"
 ]
+# idx is the selected index
 ```
 
 
