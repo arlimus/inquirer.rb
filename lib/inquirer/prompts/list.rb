@@ -1,55 +1,49 @@
 require 'term/ansicolor'
 
 # Base rendering for simple lists
-module ListRendererBase
+module ListRenderer
   def render heading = nil, list = [], footer = nil
     # render the heading
-    ( heading.nil? ? "" : self::Heading % heading ) +
+    ( heading.nil? ? "" : @heading % heading ) +
     # render the list
     list.map do |li|
       li["selected"] ? selected(li["value"]) : unselected(li["value"])
     end.join("") +
     # render the footer
-    ( footer.nil? ? "" : self::Footer % footer )
+    ( footer.nil? ? "" : @footer % footer )
   end
 
   private
 
   def selected x
-    self::Selector + " " + self::SelectedItem % x
+    @selector + " " + @selected_item % x
   end
 
   def unselected x
-    "  " + self::Item % x
+    "  " + @item % x
   end
 end
 
-# Simple formatting for list rendering
-module ListRendererSimple
-  include ListRendererBase
-  include Term::ANSIColor
-  extend self
-  Heading = "%s:\n"
-  Footer = "%s\n"
-  Item = "%s\n"
-  SelectedItem = cyan("%s") + "\n"
-  Selector = cyan ">"
-end
-
 # Default formatting for list rendering
-module ListRenderer
-  include ListRendererSimple
-  extend self
-  Selector = cyan "‣"
+class ListDefault
+  include ListRenderer
+  C = Term::ANSIColor
+  def initialize( style )
+    @heading = "%s:\n"
+    @footer = "%s\n"
+    @item = "%s\n"
+    @selected_item = C.cyan("%s") + "\n"
+    @selector = C.cyan style.selector
+  end
 end
 
 class List
-  def initialize question = nil, elements = [], renderer = ListRenderer
+  def initialize question = nil, elements = [], renderer = nil
     @elements = elements
     @question = question
     @pos = 0
     @prompt = ""
-    @renderer = renderer
+    @renderer = renderer || ListDefault.new( Inquirer::Style::Default )
   end
 
   def update_prompt
