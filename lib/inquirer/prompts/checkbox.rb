@@ -1,60 +1,53 @@
 require 'term/ansicolor'
+require 'inquirer/style'
 
 # Base rendering for simple lists
-module CheckboxRendererBase
+module CheckboxRenderer
   def render heading = nil, list = [], footer = nil
     # render the heading
-    ( heading.nil? ? "" : self::Heading % heading ) +
+    ( heading.nil? ? "" : @heading % heading ) +
     # render the list
     list.map do |li|
       render_item li
     end.join("") +
     # render the footer
-    ( footer.nil? ? "" : self::Footer % footer )
+    ( footer.nil? ? "" : @footer % footer )
   end
 
   private
 
   def render_item x
-    ( x["selected"] ? self::Selector : " " ) +
-    ( x["active"] ? self::CheckboxOn : self::CheckboxOff ) +
+    ( x["selected"] ? @selector : " " ) +
+    ( x["active"] ? @checkbox_on : @checkbox_off ) +
     " " +
-    ( x["active"] ? self::ActiveItem : self::Item ) % x["value"]
+    ( x["active"] ? @active_item : @item ) % x["value"]
   end
 
 end
 
-# Simple formatting for list rendering
-module CheckboxRendererSimple
-  include CheckboxRendererBase
-  include Term::ANSIColor
-  extend self
-  Heading = "%s:\n"
-  Footer = "%s\n"
-  Item = "%s\n"
-  ActiveItem = "%s" + "\n"
-  Selector = cyan ">"
-  CheckboxOn = cyan "[X]"
-  CheckboxOff = "[ ]"
-end
-
-# Default formatting for list rendering
-module CheckboxRenderer
-  include CheckboxRendererSimple
-  extend self
-  Selector = cyan "‣"
-  CheckboxOn = cyan "⬢"
-  CheckboxOff = "⬡"
+# Formatting for rendering
+class CheckboxDefault
+  include CheckboxRenderer
+  C = Term::ANSIColor
+  def initialize( style )
+    @heading      = "%s:\n"
+    @footer       = "%s\n"
+    @item         = "%s\n"
+    @active_item  = "%s" + "\n"
+    @selector     = C.cyan style.selector
+    @checkbox_on  = C.cyan style.checkbox_on
+    @checkbox_off = style.checkbox_off
+  end
 end
 
 class Checkbox
-  def initialize question = nil, elements = [], renderer = CheckboxRenderer
+  def initialize question = nil, elements = [], renderer = nil
     @elements = elements
     @question = question
     @pos = 0
     @active = elements.map{|i| false}
     @prompt = ""
-    @renderer = renderer
+    @renderer = renderer || CheckboxDefault.new( Inquirer::Style::Default )
   end
 
   def update_prompt
