@@ -1,10 +1,10 @@
-require 'inquirer/utils/iohelper'
-require 'inquirer/prompts/list'
-require 'inquirer/prompts/checkbox'
-
 module Inquirer
   VERSION = "0.0.0"
 end
+
+require 'inquirer/utils/iohelper'
+require 'inquirer/prompts/list'
+require 'inquirer/prompts/checkbox'
 
 module Ask
   extend self
