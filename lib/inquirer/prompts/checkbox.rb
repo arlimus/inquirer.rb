@@ -1,5 +1,4 @@
 require 'term/ansicolor'
-require 'inquirer/prompts/list'
 
 # Base rendering for simple lists
 module CheckboxRendererBase
