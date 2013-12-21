@@ -7,7 +7,7 @@ module ListRenderer
     ( heading.nil? ? "" : @heading % heading ) +
     # render the list
     list.map do |li|
-      li["selected"] ? selected(li["value"]) : unselected(li["value"])
+      render_item li
     end.join("") +
     # render the footer
     ( footer.nil? ? "" : @footer % footer )
@@ -15,12 +15,9 @@ module ListRenderer
 
   private
 
-  def selected x
-    @selector + " " + @selected_item % x
-  end
-
-  def unselected x
-    "  " + @item % x
+  def render_item x
+    ( x["selected"] ? @selector : " " ) + " " +
+    ( x["selected"] ? @selected_item : @item ) % x["value"]
   end
 end
 
