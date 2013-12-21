@@ -33,7 +33,7 @@ module CheckboxRendererSimple
   Heading = "%s:\n"
   Footer = "%s\n"
   Item = "%s\n"
-  ActiveItem = cyan("%s") + "\n"
+  ActiveItem = "%s" + "\n"
   Selector = cyan ">"
   CheckboxOn = cyan "[X]"
   CheckboxOff = "[ ]"
