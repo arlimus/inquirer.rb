@@ -1,5 +1,5 @@
 module Inquirer
-  VERSION = "0.0.0"
+  VERSION = "0.1.0"
 end
 
 require 'inquirer/utils/iohelper'
