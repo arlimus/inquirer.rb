@@ -15,6 +15,8 @@ idx = Ask.list "Look behind you...", [
 # idx is the selected index
 ```
 
+![List example](example/list.png)
+
 ```ruby
 idx = Ask.checkbox "Monkey see, monkey...", [
   "don't",
@@ -23,6 +25,8 @@ idx = Ask.checkbox "Monkey see, monkey...", [
 ]
 # idx is an array containing the selections
 ```
+
+![Checkbox example](example/checkbox.png)
 
 ## Compatibility
 
