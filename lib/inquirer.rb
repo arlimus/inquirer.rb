@@ -1,7 +1,4 @@
-module Inquirer
-  VERSION = "0.1.0"
-end
-
+require 'inquirer/version'
 require 'inquirer/utils/iohelper'
 require 'inquirer/prompts/list'
 require 'inquirer/prompts/checkbox'
