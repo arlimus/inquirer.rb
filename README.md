@@ -4,8 +4,6 @@
 
 Interactive user prompts on CLI for ruby.
 
-... under development ...
-
 ## Examples
 
 ```ruby
@@ -36,6 +34,7 @@ idx = Ask.checkbox "Monkey see, monkey...", [
 |----------------|:-----:|:----:|:-------:|
 | MRI 1.9.3      | ✔     | ✔    | ✘       |
 | MRI 2.0.0      | ✔     | ✔    | ✘       |
+| Rubinius 2.1.1 | ✔     | ✔    | ✘       |
 | Rubinius 2.2.1 | ✔     | ✔    | ✘       |
 | JRuby 1.7.x    | ✘     | ✘    | ✘       |
 
