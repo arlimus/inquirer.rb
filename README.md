@@ -1,5 +1,7 @@
 # inquirer.rb
 
+[![Build Status](https://travis-ci.org/arlimus/inquirer.rb.png)](https://travis-ci.org/arlimus/inquirer.rb)
+
 Interactive user prompts on CLI for ruby.
 
 ... under development ...
