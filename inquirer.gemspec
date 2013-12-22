@@ -15,6 +15,10 @@ spec = Gem::Specification.new do |s|
   s.homepage = 'https://github.com/arlimus/livecd'
 
   s.add_dependency 'term-ansicolor', '>= 1.2.2'
+  if( RUBY_ENGINE == "rbx" )
+    s.add_dependency 'rubysl-mutex_m'
+    s.add_dependency 'rubysl-singleton'
+  end
 
   s.files = `git ls-files`.split("\n")
   s.executables = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
