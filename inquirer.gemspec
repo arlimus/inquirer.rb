@@ -18,6 +18,7 @@ spec = Gem::Specification.new do |s|
   if( RUBY_ENGINE == "rbx" )
     s.add_dependency 'rubysl-mutex_m'
     s.add_dependency 'rubysl-singleton'
+    s.add_dependency 'rubysl-io-console'
   end
 
   s.files = `git ls-files`.split("\n")
