@@ -1,21 +1,4 @@
 require 'minitest_helper'
-# overload all necessary methods of iohelper
-module IOHelper
-  extend self
-  attr_accessor :output, :keys
-  def render sth
-    @output += sth
-  end
-  def clear
-    @output = ""
-  end
-  def rerender sth
-    @output = sth
-  end
-  def read_key_while &block
-    Array(@keys).each{|key| block.(key)}
-  end
-end
 
 describe List do
   before :each do

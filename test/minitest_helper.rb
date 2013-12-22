@@ -19,3 +19,22 @@ begin
   end
 rescue LoadError
 end
+
+# overload all necessary methods of iohelper
+# this will serve as a mock helper to read input and output
+module IOHelper
+  extend self
+  attr_accessor :output, :keys
+  def render sth
+    @output += sth
+  end
+  def clear
+    @output = ""
+  end
+  def rerender sth
+    @output = sth
+  end
+  def read_key_while &block
+    Array(@keys).each{|key| block.(key)}
+  end
+end
