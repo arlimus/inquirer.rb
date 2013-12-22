@@ -7,6 +7,11 @@ describe List do
     IOHelper.keys = nil
   end
 
+  it "finishes rendering with a clear" do
+    List.ask "select", ["one","two","three"]
+    IOHelper.output.must_equal ""
+  end
+
   it "doesn't render the dialog with 0 items" do
     List.ask "select", [], clear: false
     IOHelper.output.must_equal ""

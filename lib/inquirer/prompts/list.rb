@@ -81,7 +81,7 @@ class List
     @pos
   end
 
-  def self.ask question = nil, elements = [], opts
+  def self.ask question = nil, elements = [], opts = { clear: true }
     l = List.new question, elements, opts[:renderer]
     l.run opts[:clear]
   end

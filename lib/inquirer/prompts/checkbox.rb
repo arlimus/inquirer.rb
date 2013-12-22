@@ -89,7 +89,7 @@ class Checkbox
     @active
   end
 
-  def self.ask question = nil, elements = [], opts
+  def self.ask question = nil, elements = [], opts = { clear: true }
     l = Checkbox.new question, elements, opts[:renderer]
     l.run opts[:clear]
   end

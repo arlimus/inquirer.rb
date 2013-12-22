@@ -7,6 +7,11 @@ describe Checkbox do
     IOHelper.keys = nil
   end
 
+  it "finishes rendering with a clear" do
+    Checkbox.ask "select", ["one","two","three"]
+    IOHelper.output.must_equal ""
+  end
+
   it "doesn't render the dialog with 0 items" do
     Checkbox.ask "select", [], clear: false
     IOHelper.output.must_equal ""
