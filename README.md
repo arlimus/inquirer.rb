@@ -39,4 +39,9 @@ idx = Ask.checkbox "Monkey see, monkey...", [
 
 ## Credit
 
-This is basically the wonderful [Inquirer.js](https://github.com/SBoudrias/Inquirer.js) ported to ruby. I was unable to find a good gem to handle user interaction in ruby as well as this module does in JS.
+This is basically the wonderful [Inquirer.js](https://github.com/SBoudrias/Inquirer.js), just done for ruby. I was unable to find a good gem to handle user interaction in ruby as well as this module does in JS.
+
+## License
+
+Apache v2
+Author: Dominik Richter

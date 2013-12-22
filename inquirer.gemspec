@@ -5,7 +5,7 @@ require 'inquirer'
 
 spec = Gem::Specification.new do |s|
   s.name = 'inquirer'
-  s.licenses = ['MPLv2']
+  s.licenses = ['Apache v2']
   s.version = Inquirer::VERSION
   s.platform = Gem::Platform::RUBY
   s.summary = "Interactive user prompts on CLI for ruby."
