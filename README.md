@@ -28,6 +28,10 @@ idx = Ask.checkbox "Monkey see, monkey...", [
 
 ![Checkbox example](example/checkbox.png)
 
+## Installation
+
+    gem install inquirer
+
 ## Compatibility
 
 |      Ruby      | Linux | OS X | Windows |
