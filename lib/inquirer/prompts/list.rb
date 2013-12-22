@@ -79,9 +79,9 @@ class List
     @pos
   end
 
-  def self.ask *args
-    l = List.new *args
-    l.run
+  def self.ask question = nil, elements = [], opts
+    l = List.new question, elements, opts[:renderer]
+    l.run opts[:clear]
   end
 
 end
