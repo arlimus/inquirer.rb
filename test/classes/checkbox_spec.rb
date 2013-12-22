@@ -22,4 +22,31 @@ describe Checkbox do
       ).must_equal [false,false,false]
   end
 
+  it "selects and renders other items correctly (press down, press up, space, cycle)" do
+    IOHelper.keys = ["down","space","enter"]
+    Checkbox.ask( "select", ["one","two","three"], clear: false
+      ).must_equal [false,true,false]
+    IOHelper.output.must_equal "select:\n ⬡ one\n\e[36m‣\e[0m\e[36m⬢\e[0m two\n ⬡ three\n"
+
+    IOHelper.keys = ["space","down","space","enter"]
+    Checkbox.ask( "select", ["one","two","three"], clear: false
+      ).must_equal [true,true,false]
+    IOHelper.output.must_equal "select:\n \e[36m⬢\e[0m one\n\e[36m‣\e[0m\e[36m⬢\e[0m two\n ⬡ three\n"
+
+    IOHelper.keys = ["space","down","space","down","space","enter"]
+    Checkbox.ask( "select", ["one","two","three"], clear: false
+      ).must_equal [true,true,true]
+    IOHelper.output.must_equal "select:\n \e[36m⬢\e[0m one\n \e[36m⬢\e[0m two\n\e[36m‣\e[0m\e[36m⬢\e[0m three\n"
+
+    IOHelper.keys = ["down","down","down","space","enter"]
+    Checkbox.ask( "select", ["one","two","three"], clear: false
+      ).must_equal [true,false,false]
+    IOHelper.output.must_equal "select:\n\e[36m‣\e[0m\e[36m⬢\e[0m one\n ⬡ two\n ⬡ three\n"
+
+    IOHelper.keys = ["up","space","enter"]
+    Checkbox.ask( "select", ["one","two","three"], clear: false
+      ).must_equal [false,false,true]
+    IOHelper.output.must_equal "select:\n ⬡ one\n ⬡ two\n\e[36m‣\e[0m\e[36m⬢\e[0m three\n"
+  end
+
 end
