@@ -1,3 +1,10 @@
+## 0.1.1
+
+* feature: add (and verify) rubinius 2.1 + 2.2 support
+* bugfix: default rendering options when invoking the module with .ask must be set
+* bugfix: add utf-8 encoding hints
+* bugfix: extract version information into a separate independent file
+
 ## 0.1.0
 
 * feature: add list selection
