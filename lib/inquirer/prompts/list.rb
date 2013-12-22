@@ -63,6 +63,8 @@ class List
   #   defaults to true; set it to false if you want the prompt to remain after
   #   the user is done with selecting
   def run clear = true
+    # finish if there's nothing to do
+    return nil if Array(@elements).empty?
     # render the
     IOHelper.render( update_prompt )
     # loop through user input
