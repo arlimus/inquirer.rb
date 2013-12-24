@@ -12,7 +12,7 @@ spec = Gem::Specification.new do |s|
   s.description = s.summary
   s.author = "Dominik Richter"
   s.email = "dominik.richter@googlemail.com"
-  s.homepage = 'https://github.com/arlimus/livecd'
+  s.homepage = 'https://github.com/arlimus/inquirer.rb'
 
   s.add_dependency 'term-ansicolor', '>= 1.2.2'
   if( RUBY_ENGINE == "rbx" )
