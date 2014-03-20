@@ -103,6 +103,19 @@ module IOHelper
     print carriage_return + ( line_up * n ) + clear_line
   end
 
+  # hides the cursor and ensure the curso be visible at the end
+  def without_cursor
+    # tell the terminal to hide the cursor
+    print `tput civis`
+    begin
+      # run the block
+      yield
+    ensure
+      # tell the terminal to show the cursor
+      print `tput cnorm`
+    end
+  end
+
   def carriage_return;  "\r"    end
   def line_up;          "\e[A"  end
   def clear_line;       "\e[0K" end
