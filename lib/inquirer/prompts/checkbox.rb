@@ -72,19 +72,24 @@ class Checkbox
   def run clear = true
     # finish if there's nothing to do
     return @active if Array(@elements).empty?
-    # render the
-    IOHelper.render( update_prompt )
-    # loop through user input
-    IOHelper.read_key_while do |key|
-      @pos = (@pos - 1) % @elements.length if key == "up"
-      @pos = (@pos + 1) % @elements.length if key == "down"
-      @active[@pos] = !@active[@pos] if key == "space"
-      IOHelper.rerender( update_prompt )
-      # we are done if the user hits return
-      key != "return"
+
+    # hides the cursor while prompting
+    IOHelper.without_cursor do
+      # render the
+      IOHelper.render( update_prompt )
+      # loop through user input
+      IOHelper.read_key_while do |key|
+        @pos = (@pos - 1) % @elements.length if key == "up"
+        @pos = (@pos + 1) % @elements.length if key == "down"
+        @active[@pos] = !@active[@pos] if key == "space"
+        IOHelper.rerender( update_prompt )
+        # we are done if the user hits return
+        key != "return"
+      end
+      # clear the final prompt and the line
+      IOHelper.clear if clear
     end
-    # clear the final prompt and the line
-    IOHelper.clear if clear
+
     # return the index of the selected item
     @active
   end
