@@ -100,7 +100,7 @@ module IOHelper
     # determine how many lines to move up
     n = @rendered.scan(/\n/).length
     # jump back to the first position and clear the line
-    print carriage_return + ( line_up * n ) + clear_line
+    print carriage_return + ( line_up + clear_line ) * n
   end
 
   # hides the cursor and ensure the curso be visible at the end
