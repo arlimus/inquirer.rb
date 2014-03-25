@@ -3,6 +3,7 @@ require 'inquirer/utils/iohelper'
 require 'inquirer/prompts/list'
 require 'inquirer/prompts/checkbox'
 require 'inquirer/prompts/input'
+require 'inquirer/prompts/confirm'
 
 module Ask
   extend self
@@ -15,5 +16,8 @@ module Ask
   end
   def input *args
     Input.ask *args
+  end
+  def confirm *args
+    Confirm.ask *args
   end
 end
