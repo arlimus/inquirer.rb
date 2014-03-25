@@ -34,7 +34,9 @@ module IOHelper
   def rerender sth
     @output = sth
   end
-  def read_key_while &block
-    Array(@keys).each{|key| block.(key)}
+  def read_key_while return_char = false, &block
+    Array(@keys).each do |key|
+      break unless block.(key)
+    end
   end
 end

@@ -56,21 +56,21 @@ module IOHelper
   # Params:
   # +with_exit_codes+:: +Bool+ whether to throw Interrupts when the user presses
   #   ctrl-c and ctrl-d. (true by default)
-  def read_key with_exit_codes = true
-    raw = read_key_raw
-    raise Interrupt if with_exit_codes and ( raw == "ctrl-c" or raw == "ctrl-d" )
-    raw
+  def read_key with_exit_codes = true, return_char = false
+    char = read_char
+    raise Interrupt if with_exit_codes and ( char == "\003" or char == "\004" )
+    if return_char then char else char_to_raw char end
   end
 
   # Get each key the user presses and hand it one by one to the block. Do this
   # as long as the block returns truthy
   # Params:
   # +&block+:: +Proc+ a block that receives a user key and returns truthy or falsy
-  def read_key_while &block
+  def read_key_while return_char = false, &block
     STDIN.noecho do
       # as long as the block doen't return falsy,
       # read the user input key and sned it to the block
-      while block.( IOHelper.read_key )
+      while block.( IOHelper.read_key true, return_char )
       end
     end
   end
@@ -100,7 +100,7 @@ module IOHelper
     # determine how many lines to move up
     n = @rendered.scan(/\n/).length
     # jump back to the first position and clear the line
-    print carriage_return + ( line_up + clear_line ) * n
+    print carriage_return + ( line_up + clear_line ) * n + clear_line
   end
 
   # hides the cursor and ensure the curso be visible at the end
@@ -116,18 +116,14 @@ module IOHelper
     end
   end
 
+  def char_to_raw char
+    KEYS.fetch char, char
+  end
+
   def carriage_return;  "\r"    end
   def line_up;          "\e[A"  end
   def clear_line;       "\e[0K" end
-
-  private
-
-  def read_key_raw
-    c = read_char
-    # try to get the key name from the character
-    k = KEYS[c]
-    # return either the character or key name
-    ( k.nil? ) ? c : k
-  end
+  def char_left;        "\e[D" end
+  def char_right;       "\e[C" end
 
 end
