@@ -11,9 +11,9 @@ describe Input do
     Input.ask("please type input").must_equal "typed input"
   end
 
-  it "should render the value besides the question in the prompt" do
-    Input.ask("please type input", clear: false)
-    IOHelper.output.must_equal "please type input: typed input"
+  it "accepts and renders response correctly" do
+    Input.ask("please type input")
+    IOHelper.output.must_equal "please type input: \e[36mtyped input\e[0m\n"
   end
 
 end
