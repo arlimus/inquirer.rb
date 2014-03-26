@@ -86,17 +86,23 @@ class Input
         IOHelper.rerender( update_prompt )
         update_cursor
       when "left"
-        @pos = [(@pos + 1), @value.length].min
-        print IOHelper.char_left
+        if @pos < @value.length
+          @pos = @pos + 1
+          print IOHelper.char_left
+        end
       when "right"
-        @pos = [(@pos - 1), 0].max
-        print IOHelper.char_right
+        if @pos > 0
+          @pos = @pos - 1
+          print IOHelper.char_right
+        end
       when "return"
         # Ignore
       else
-        @value = @value.insert(@value.length - @pos, key)
-        IOHelper.rerender( update_prompt )
-        update_cursor
+        unless ["up", "down"].include?(raw)
+          @value = @value.insert(@value.length - @pos, key)
+          IOHelper.rerender( update_prompt )
+          update_cursor
+        end
       end
       raw != "return"
     end
