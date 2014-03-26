@@ -46,9 +46,14 @@ phone = Ask.input "What's your phone number", default: "123"
 
 ### Confirm
 
+Takes optional `default` property (`true` or `false`). The default `default` value is true.
+
 ```ruby
 value = Ask.confirm "Are you sure?"
 # value is a boolean
+
+Ask.confirm "Are you sure?", default: false
+# Default is false
 ```
 
 ![Input example](example/confirm.png)

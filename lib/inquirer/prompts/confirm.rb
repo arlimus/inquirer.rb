@@ -2,11 +2,15 @@ require 'term/ansicolor'
 
 # Base rendering for confirm
 module ConfirmRenderer
-  def render heading = nil, value = nil, footer = nil
+  def render heading = nil, default = nil, footer = nil
+    options = ['y','n']
+    options[0].capitalize! if default == true
+    options[1].capitalize! if default == false
+
     # render the heading
     ( heading.nil? ? "" : @heading % heading ) +
-    # render the list
-    ( value.nil? ? "" : @value % value ) +
+    # render the defaults
+    @default % options +
     # render the footer
     ( footer.nil? ? "" : @footer % footer )
   end
@@ -24,8 +28,8 @@ class ConfirmDefault
   include ConfirmRenderer
   C = Term::ANSIColor
   def initialize( style )
-    @heading = "%s: (Y/n)"
-    @value = "%s"
+    @heading = "%s: "
+    @default = "(%s/%s)"
     @footer = "%s"
   end
 end
@@ -41,9 +45,10 @@ class ConfirmResponseDefault
 end
 
 class Confirm
-  def initialize question = nil, renderer = nil, responseRenderer = nil
+  def initialize question = nil, default = nil, renderer = nil, responseRenderer = nil
     @question = question
     @value = ""
+    @default = default
     @prompt = ""
     @renderer = renderer || ConfirmDefault.new( Inquirer::Style::Default )
     @responseRenderer = responseRenderer = ConfirmResponseDefault.new()
@@ -51,7 +56,7 @@ class Confirm
 
   def update_prompt
     # call the renderer
-    @prompt = @renderer.render(@question, @value)
+    @prompt = @renderer.render(@question, @default)
   end
 
    def update_response
@@ -83,11 +88,14 @@ class Confirm
         @value = false
         false
       when "return"
-        @value = true
+        @value = @default
         false
+      else
+        true
       end
-      # raw != "return"
+
     end
+
     # clear the final prompt and the line
     IOHelper.clear if clear
 
@@ -99,7 +107,7 @@ class Confirm
   end
 
   def self.ask question = nil, opts = {}
-    l = Confirm.new question, opts[:renderer], opts[:rendererResponse]
+    l = Confirm.new question, opts.fetch(:default, true), opts[:renderer], opts[:rendererResponse]
     l.run opts.fetch(:clear, true), opts.fetch(:response, true)
   end
 
