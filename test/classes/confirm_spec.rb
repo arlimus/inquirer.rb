@@ -20,4 +20,22 @@ describe Confirm do
     Confirm.ask("Are you sure?").must_equal false
   end
 
+  it "accepts and renders response correctly" do
+    IOHelper.keys = "n"
+    Confirm.ask("Are you sure?")
+    IOHelper.output.must_equal "Are you sure?: \e[36mNo\e[0m\n"
+
+    IOHelper.keys = "N"
+    Confirm.ask("Are you sure?")
+    IOHelper.output.must_equal "Are you sure?: \e[36mNo\e[0m\n"
+
+    IOHelper.keys = "y"
+    Confirm.ask("Are you sure?")
+    IOHelper.output.must_equal "Are you sure?: \e[36mYes\e[0m\n"
+
+    IOHelper.keys = "y"
+    Confirm.ask("Are you sure?")
+    IOHelper.output.must_equal "Are you sure?: \e[36mYes\e[0m\n"
+  end
+
 end
