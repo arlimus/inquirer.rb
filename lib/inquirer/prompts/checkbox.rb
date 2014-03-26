@@ -14,6 +14,13 @@ module CheckboxRenderer
     ( footer.nil? ? "" : @footer % footer )
   end
 
+  def renderResponse heading = nil, response = nil
+    # render the heading
+    ( heading.nil? ? "" : @heading % heading ) +
+    # render the footer
+    ( response.nil? ? "" : @response % response )
+  end
+
   private
 
   def render_item x
@@ -40,14 +47,25 @@ class CheckboxDefault
   end
 end
 
+# Default formatting for response
+class CheckboxResponseDefault
+  include CheckboxRenderer
+  C = Term::ANSIColor
+  def initialize( style = nil )
+    @heading = "%s: "
+    @response = C.cyan("%s") + "\n"
+  end
+end
+
 class Checkbox
-  def initialize question = nil, elements = [], renderer = nil
+  def initialize question = nil, elements = [], renderer = nil, responseRenderer = nil
     @elements = elements
     @question = question
     @pos = 0
     @active = elements.map{|i| false}
     @prompt = ""
     @renderer = renderer || CheckboxDefault.new( Inquirer::Style::Default )
+    @responseRenderer = responseRenderer = CheckboxResponseDefault.new()
   end
 
   def update_prompt
@@ -63,13 +81,24 @@ class Checkbox
     @prompt = @renderer.render(@question, e)
   end
 
+   def update_response
+    e = @elements
+      .map.with_index(0)
+      .select {|f, pos| @active[pos] }
+      .map {|f, pos| f }
+    @prompt = @responseRenderer.renderResponse(@question, e.join(", "))
+  end
+
   # Run the list selection, wait for the user to select an item and return
   # the selected index
   # Params:
   # +clear+:: +Bool+ whether to clear the selection prompt once this is done
   #   defaults to true; set it to false if you want the prompt to remain after
   #   the user is done with selecting
-  def run clear = true
+  # +response+:: +Bool+ whether show the rendered response when this is done
+  #   defaults to true; set it to false if you want the prompt to remain after
+  #   the user is done with selecting
+  def run clear, response
     # finish if there's nothing to do
     return @active if Array(@elements).empty?
 
@@ -86,17 +115,21 @@ class Checkbox
         # we are done if the user hits return
         key != "return"
       end
-      # clear the final prompt and the line
-      IOHelper.clear if clear
     end
+
+    # clear the final prompt and the line
+    IOHelper.clear if clear
+
+    # show the answer
+    IOHelper.render( update_response ) if response
 
     # return the index of the selected item
     @active
   end
 
-  def self.ask question = nil, elements = [], opts = { clear: true }
-    l = Checkbox.new question, elements, opts[:renderer]
-    l.run opts[:clear]
+  def self.ask question = nil, elements = [], opts = {}
+    l = Checkbox.new question, elements, opts[:renderer], opts[:rendererResponse]
+    l.run opts.fetch(:clear, true), opts.fetch(:response, true)
   end
 
 end
