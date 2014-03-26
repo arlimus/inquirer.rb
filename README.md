@@ -34,9 +34,11 @@ idx = Ask.checkbox "Monkey see, monkey...", [
 
 ### Input
 
+Takes optional `default` property (`string`).
+
 ```ruby
-name = Ask.input "What's your name"
-phone = Ask.input "What's your phone number"
+firstname = Ask.input "What's your name"
+phone = Ask.input "What's your phone number", default: "123"
 # name and phone are the responses for each question
 ```
 

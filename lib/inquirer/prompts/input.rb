@@ -2,9 +2,11 @@ require 'term/ansicolor'
 
 # Base rendering for input
 module InputRenderer
-  def render heading = nil, value = nil, footer = nil
+  def render heading = nil, value = nil, default = nil, footer = nil
     # render the heading
     ( heading.nil? ? "" : @heading % heading ) +
+    # render the defaults
+    ( default.nil? ? "" : @default % default ) +
     # render the list
     ( value.nil? ? "" : @value % value ) +
     # render the footer
@@ -25,6 +27,7 @@ class InputDefault
   C = Term::ANSIColor
   def initialize( style )
     @heading = "%s: "
+    @default = "(%s) "
     @value = "%s"
     @footer = "%s"
   end
@@ -41,9 +44,10 @@ class InputResponseDefault
 end
 
 class Input
-  def initialize question = nil, renderer = nil, responseRenderer = nil
+  def initialize question = nil, default = nil, renderer = nil, responseRenderer = nil
     @question = question
     @value = ""
+    @default = default
     @prompt = ""
     @pos = 0
     @renderer = renderer || InputDefault.new( Inquirer::Style::Default )
@@ -52,7 +56,7 @@ class Input
 
   def update_prompt
     # call the renderer
-    @prompt = @renderer.render(@question, @value)
+    @prompt = @renderer.render(@question, @value, @default)
   end
 
   def update_response
@@ -96,7 +100,9 @@ class Input
           print IOHelper.char_right
         end
       when "return"
-        # Ignore
+        if not @default.nil? and @value == ""
+          @value = @default
+        end
       else
         unless ["up", "down"].include?(raw)
           @value = @value.insert(@value.length - @pos, key)
@@ -117,7 +123,7 @@ class Input
   end
 
   def self.ask question = nil, opts = {}
-    l = Input.new question, opts[:renderer], opts[:rendererResponse]
+    l = Input.new question, opts[:default], opts[:renderer], opts[:rendererResponse]
     l.run opts.fetch(:clear, true), opts.fetch(:response, true)
   end
 

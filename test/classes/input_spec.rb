@@ -16,4 +16,9 @@ describe Input do
     IOHelper.output.must_equal "please type input: \e[36mtyped input\e[0m\n"
   end
 
+  it "should return default value if given and there is no input" do
+    IOHelper.keys = "\r"
+    Confirm.ask("Are you sure?", default: "I'm default").must_equal "I'm default"
+  end
+
 end
