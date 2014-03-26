@@ -13,6 +13,13 @@ module ListRenderer
     ( footer.nil? ? "" : @footer % footer )
   end
 
+  def renderResponse heading = nil, response = nil
+    # render the heading
+    ( heading.nil? ? "" : @heading % heading ) +
+    # render the footer
+    ( response.nil? ? "" : @response % response )
+  end
+
   private
 
   def render_item x
@@ -34,13 +41,24 @@ class ListDefault
   end
 end
 
+# Default formatting for response
+class ListResponseDefault
+  include ListRenderer
+  C = Term::ANSIColor
+  def initialize( style = nil )
+    @heading = "%s: "
+    @response = C.cyan("%s") + "\n"
+  end
+end
+
 class List
-  def initialize question = nil, elements = [], renderer = nil
+  def initialize question = nil, elements = [], renderer = nil, responseRenderer = nil
     @elements = elements
     @question = question
     @pos = 0
     @prompt = ""
-    @renderer = renderer || ListDefault.new( Inquirer::Style::Default )
+    @renderer = renderer = ListDefault.new( Inquirer::Style::Default )
+    @responseRenderer = responseRenderer = ListResponseDefault.new()
   end
 
   def update_prompt
@@ -56,13 +74,20 @@ class List
     @prompt = @renderer.render(@question, e)
   end
 
+  def update_response
+    @prompt = @responseRenderer.renderResponse(@question, @elements[@pos])
+  end
+
   # Run the list selection, wait for the user to select an item and return
   # the selected index
   # Params:
   # +clear+:: +Bool+ whether to clear the selection prompt once this is done
   #   defaults to true; set it to false if you want the prompt to remain after
   #   the user is done with selecting
-  def run clear = true
+  # +response+:: +Bool+ whether show the rendered response when this is done
+  #   defaults to true; set it to false if you want the prompt to remain after
+  #   the user is done with selecting
+  def run clear, response
     # finish if there's nothing to do
     return nil if Array(@elements).empty?
 
@@ -78,17 +103,21 @@ class List
         # we are done if the user hits return
         key != "return"
       end
-      # clear the final prompt and the line
-      IOHelper.clear if clear
     end
+
+    # clear the final prompt and the line
+    IOHelper.clear if clear
+
+    # show the answer
+    IOHelper.render( update_response ) if response
 
     # return the index of the selected item
     @pos
   end
 
-  def self.ask question = nil, elements = [], opts = { clear: true }
-    l = List.new question, elements, opts[:renderer]
-    l.run opts[:clear]
+  def self.ask question = nil, elements = [], opts = {}
+    l = List.new question, elements, opts[:renderer], opts[:rendererResponse]
+    l.run opts.fetch(:clear, true), opts.fetch(:response, true)
   end
 
 end
