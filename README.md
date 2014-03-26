@@ -87,6 +87,12 @@ Ask.input "What's your name", clear: false, response: false
 | Rubinius 2.2.1 | ✔     | ✔    | ✘       |
 | JRuby 1.7.x    | ✘     | ✘    | ✘       |
 
+## Contributors
+
+**Thank you for contributing!**
+
+* ![blackjid](https://avatars1.githubusercontent.com/u/228037?s=16) [blackjid](https://github.com/blackjid)
+
 ## Credit
 
 This is basically the wonderful [Inquirer.js](https://github.com/SBoudrias/Inquirer.js), just done for ruby. I was unable to find a good gem to handle user interaction in ruby as well as this module does in JS.
