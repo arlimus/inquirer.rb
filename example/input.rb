@@ -1,4 +1,6 @@
 require_relative '../lib/inquirer'
 
-value = Ask.input "What's your name"
-puts "you wrote #{value}"
+name = Ask.input "What's your name"
+phone = Ask.input "What's your phone number"
+puts "name: #{name}"
+puts "phone: #{phone}"

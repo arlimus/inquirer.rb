@@ -4,7 +4,9 @@
 
 Interactive user prompts on CLI for ruby.
 
-## Examples
+## Prompt types
+
+### List
 
 ```ruby
 idx = Ask.list "Look behind you...", [
@@ -17,6 +19,8 @@ idx = Ask.list "Look behind you...", [
 
 ![List example](example/list.png)
 
+### Checkbox
+
 ```ruby
 idx = Ask.checkbox "Monkey see, monkey...", [
   "don't",
@@ -27,6 +31,47 @@ idx = Ask.checkbox "Monkey see, monkey...", [
 ```
 
 ![Checkbox example](example/checkbox.png)
+
+### Input
+
+```ruby
+name = Ask.input "What's your name"
+phone = Ask.input "What's your phone number"
+# name and phone are the responses for each question
+```
+
+![Input example](example/input.png)
+
+### Confirm
+
+```ruby
+value = Ask.confirm "Are you sure?"
+# value is a boolean
+```
+
+![Input example](example/confirm.png)
+
+## Options
+
+### Method parameters
+
+- question: `string` The text to your are going to ask
+- elements: `array` Array of options to show. Only for `checkbox` and `list` types.
+
+### Rendering options
+
+You can pass this options as the lastest parameter
+
+- clear: `bool` [Default true] Clear the original question after pressing enter
+- response: `bool` [Default true] Whether to show the selected response
+
+```ruby
+# If you dont want any output use
+Ask.input "What's your name", response: false
+
+# If you don't want the response and you want to keep the question prompt
+Ask.input "What's your name", clear: false, response: false
+```
 
 ## Installation
 

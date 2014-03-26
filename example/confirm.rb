@@ -1,4 +1,5 @@
 require_relative '../lib/inquirer'
 
-value = Ask.confirm "Are you sure?"
-puts "you chose #{value}"
+value1 = Ask.confirm "Are you sure?"
+value2 = Ask.confirm "Are you really sure?"
+puts "you chose #{value1} and #{value2}"

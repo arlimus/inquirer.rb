@@ -4,4 +4,9 @@ idx = Ask.checkbox "Monkey see, monkey...", [
   "eats Banana",
   "do"
 ]
+idx = Ask.checkbox "Monkey see, monkey...", [
+  "don't",
+  "eats Banana",
+  "do"
+]
 puts "you selected #{idx}"
