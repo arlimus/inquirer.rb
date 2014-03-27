@@ -6,18 +6,27 @@ describe Confirm do
     IOHelper.output = ""
   end
 
-  it "should return true for y and Y" do
+  it "should return true for y and Y and enter when default" do
     IOHelper.keys = "y"
     Confirm.ask("Are you sure?").must_equal true
     IOHelper.keys = "Y"
     Confirm.ask("Are you sure?").must_equal true
+    IOHelper.keys = "\r"
+    Confirm.ask("Are you sure?", default: true).must_equal true
   end
 
-  it "should return false for n and N" do
+  it "should return false for n and N and enter when default" do
     IOHelper.keys = "n"
     Confirm.ask("Are you sure?").must_equal false
     IOHelper.keys = "N"
     Confirm.ask("Are you sure?").must_equal false
+    IOHelper.keys = "\r"
+    Confirm.ask("Are you sure?", default: false).must_equal false
+  end
+
+  it "should return true if not default given" do
+    IOHelper.keys = "\r"
+    Confirm.ask("Are you sure?").must_equal true
   end
 
   it "accepts and renders response correctly" do
