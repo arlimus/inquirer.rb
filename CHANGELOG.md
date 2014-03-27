@@ -1,3 +1,11 @@
+## 0.2.0
+
+* feature: add user input prompt with support for default values
+* feature: add confirmation prompt with support for default values
+* feature: render response for all prompts if desired
+* improvement: hide the cursor in the list and checkbox prompts
+* bugfix: fix the clear method not clearing every line on the way up
+
 ## 0.1.1
 
 * feature: add (and verify) rubinius 2.1 + 2.2 support
