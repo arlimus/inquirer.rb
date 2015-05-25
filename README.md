@@ -21,12 +21,14 @@ idx = Ask.list "Look behind you...", [
 
 ### Checkbox
 
+Takes optional `default` property that define the checked options
+
 ```ruby
 idx = Ask.checkbox "Monkey see, monkey...", [
   "don't",
   "eats Banana",
   "do"
-]
+], default: [true, false, true]
 # idx is an array containing the selections
 ```
 
