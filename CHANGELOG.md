@@ -1,3 +1,9 @@
+## 0.2.1
+
+* feature: add configurable defaults to checkboxes
+* feature: add Ruby MRI 2.1+2.2, Rubinius 2.5 support
+  discontinue Rubinius 2.1+2.2
+
 ## 0.2.0
 
 * feature: add user input prompt with support for default values
