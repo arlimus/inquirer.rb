@@ -91,9 +91,10 @@ Ask.input "What's your name", clear: false, response: false
 |      Ruby      | Linux | OS X | Windows |
 |----------------|:-----:|:----:|:-------:|
 | MRI 1.9.3      | ✔     | ✔    | ✘       |
-| MRI 2.0.0      | ✔     | ✔    | ✘       |
-| Rubinius 2.1.1 | ✔     | ✔    | ✘       |
-| Rubinius 2.2.1 | ✔     | ✔    | ✘       |
+| MRI 2.0.x      | ✔     | ✔    | ✘       |
+| MRI 2.1.x      | ✔     | ✔    | ✘       |
+| MRI 2.2.x      | ✔     | ✔    | ✘       |
+| Rubinius 2.5.x | ✔     | ✔    | ✘       |
 | JRuby 1.7.x    | ✘     | ✘    | ✘       |
 
 ## Contributors
