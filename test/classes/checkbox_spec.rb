@@ -22,10 +22,21 @@ describe Checkbox do
     IOHelper.output.must_equal "select:\n\e[36m‣\e[0m⬡ one\n ⬡ two\n ⬡ three\n"
   end
 
+  it "renders the dialog with 3 items with defaults" do
+    Checkbox.ask "select", ["one","two","three"], default: [true, false, true], clear: false, response: false
+    IOHelper.output.must_equal "select:\n\e[36m‣\e[0m\e[36m⬢\e[0m one\n ⬡ two\n \e[36m⬢\e[0m three\n"
+  end
+
   it "it finishes selection on pressing enter" do
     IOHelper.keys = "enter"
     Checkbox.ask( "select", ["one","two","three"], clear: false, response: false
       ).must_equal [false,false,false]
+  end
+
+    it "it finishes selection on pressing enter with defaults" do
+    IOHelper.keys = "enter"
+    Checkbox.ask( "select", ["one","two","three"], default: [true, false, true], clear: false, response: false
+      ).must_equal [true,false,true]
   end
 
   it "selects and renders other items correctly (press down, press up, space, cycle)" do
