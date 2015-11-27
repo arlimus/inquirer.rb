@@ -21,4 +21,9 @@ describe Input do
     Confirm.ask("Are you sure?", default: "I'm default").must_equal "I'm default"
   end
 
+  it "should provide a password input without displaying the value" do
+    Input.ask("please type password", password: true)
+    IOHelper.output.must_equal "please type password: \e[36m***********\e[0m\n"
+  end
+
 end

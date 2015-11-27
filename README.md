@@ -42,6 +42,9 @@ Takes optional `default` property (`string`).
 firstname = Ask.input "What's your name"
 phone = Ask.input "What's your phone number", default: "123"
 # name and phone are the responses for each question
+
+password = Ask.input "Enter your password", password: true
+# this will not prompt the password
 ```
 
 ![Input example](example/input.png)
