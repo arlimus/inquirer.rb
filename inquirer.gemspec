@@ -14,7 +14,12 @@ spec = Gem::Specification.new do |s|
   s.email = "dominik.richter@googlemail.com"
   s.homepage = 'https://github.com/arlimus/inquirer.rb'
 
-  s.add_dependency 'term-ansicolor', '>= 1.2.2'
+  if( RUBY_VERSION.start_with? '1.' )
+    s.add_dependency 'term-ansicolor', '~> 1.2.2'
+  else
+    s.add_dependency 'term-ansicolor', '>= 1.3'
+  end
+
   if( RUBY_ENGINE == "rbx" )
     s.add_dependency 'rubysl-mutex_m'
     s.add_dependency 'rubysl-singleton'
