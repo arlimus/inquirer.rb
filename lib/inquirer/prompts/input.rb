@@ -44,23 +44,29 @@ class InputResponseDefault
 end
 
 class Input
-  def initialize question = nil, default = nil, renderer = nil, responseRenderer = nil
+  def initialize question = nil, default = nil, renderer = nil, responseRenderer = nil, password = false
     @question = question
     @value = ""
     @default = default
     @prompt = ""
+    @password = password
     @pos = 0
     @renderer = renderer || InputDefault.new( Inquirer::Style::Default )
     @responseRenderer = responseRenderer = InputResponseDefault.new()
   end
 
+  def display_value
+    return @value unless @password
+    @value.tr("^\n", '*')
+  end
+
   def update_prompt
     # call the renderer
-    @prompt = @renderer.render(@question, @value, @default)
+    @prompt = @renderer.render(@question, display_value, @default)
   end
 
   def update_response
-    @prompt = @responseRenderer.renderResponse(@question, @value)
+    @prompt = @responseRenderer.renderResponse(@question, display_value)
   end
 
   def update_cursor
@@ -123,7 +129,7 @@ class Input
   end
 
   def self.ask question = nil, opts = {}
-    l = Input.new question, opts[:default], opts[:renderer], opts[:rendererResponse]
+    l = Input.new question, opts[:default], opts[:renderer], opts[:rendererResponse], opts[:password]
     l.run opts.fetch(:clear, true), opts.fetch(:response, true)
   end
 
