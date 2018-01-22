@@ -1,3 +1,9 @@
+**Mothballed**
+
+I recommend checking out [tty-prompt](https://github.com/piotrmurach/tty-prompt) instead which provides a lot of this functionality!
+
+------
+
 # inquirer.rb
 
 [![Build Status](https://travis-ci.org/arlimus/inquirer.rb.png)](https://travis-ci.org/arlimus/inquirer.rb)
